@@ -25,25 +25,25 @@ export default function Course({ course, refreshCourses }) {
 		}
 	}
 
-	const updateCourse = async () => {
-		try {
-			await fetch('/.netlify/functions/courses', {
-				method: 'PUT',
-				body: JSON.stringify({
-					id: course.id,
-					fields: {
-						name: course.name,
-						link: course.link,
-						tags: course.tags,
-						purchased: course.purchased
-					}
-				})
-			})
-			refreshCourses()
-		} catch (err) {
-			console.error(err)
-		}
-	}
+	// const updateCourse = async () => {
+	// 	try {
+	// 		await fetch('/.netlify/functions/courses', {
+	// 			method: 'PUT',
+	// 			body: JSON.stringify({
+	// 				id: course.id,
+	// 				fields: {
+	// 					name: course.name,
+	// 					link: course.link,
+	// 					tags: course.tags,
+	// 					purchased: course.purchased
+	// 				}
+	// 			})
+	// 		})
+	// 		refreshCourses()
+	// 	} catch (err) {
+	// 		console.error(err)
+	// 	}
+	// }
 
 	return (
 		<div className='list-group d-flex flex-row'>
@@ -58,12 +58,12 @@ export default function Course({ course, refreshCourses }) {
 				</div>
 			</a>
 			<div className='d-flex align-items-center ms-3 my-1'>
-				<button
+				{/* <button
 					className='btn btn-sm btn-outline-info me-2 disabled'
 					onClick={updateCourse}
 					>
 					Update Course
-				</button>
+				</button> */}
 				<button
 					className='btn btn-sm btn-outline-danger'
 					onClick={deleteCourse}
