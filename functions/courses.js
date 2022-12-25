@@ -1,34 +1,10 @@
-// const formattedReturn = require('./helpers/formattedReturn')
-// const getCourses = require('./helpers/getCourses')
-// const createCourse = require('./helpers/createCourse')
-// const deleteCourse = require('./helpers/deleteCourse')
-// const updateCourse = require('./helpers/updateCourse')
+const formattedReturn = require('./helpers/formattedReturn')
+const getCourses = require('./helpers/getCourses')
+const createCourse = require('./helpers/createCourse')
+const deleteCourse = require('./helpers/deleteCourse')
+const updateCourse = require('./helpers/updateCourse')
 
-// exports.handler = async (event) => {
-// 	if (event.httpMethod === 'GET') {
-// 		return await getCourses(event)
-// 	}
-// 	else if (event.httpMethod === 'POST') {
-// 		return await createCourse(event)
-// 	}
-// 	else if (event.httpMethod === 'PUT') {
-// 		return await updateCourse(event)
-// 	}
-// 	else if (event.httpMethod === 'DELETE') {
-// 		return await deleteCourse(event)
-// 	}
-// 	else {
-// 		return formattedReturn(405, {})
-// 	}
-// }
-
-import formattedReturn from './helpers/formattedReturn'
-import getCourses from './helpers/getCourses'
-import createCourse from './helpers/createCourse'
-import deleteCourse from './helpers/deleteCourse'
-import updateCourse from './helpers/updateCourse'
-
-export async function handler(event) {
+exports.handler = async (event) => {
 	if (event.httpMethod === 'GET') {
 		return await getCourses(event)
 	}
@@ -45,3 +21,27 @@ export async function handler(event) {
 		return formattedReturn(405, {})
 	}
 }
+
+// import formattedReturn from './helpers/formattedReturn'
+// import getCourses from './helpers/getCourses'
+// import createCourse from './helpers/createCourse'
+// import deleteCourse from './helpers/deleteCourse'
+// import updateCourse from './helpers/updateCourse'
+
+// export async function handler(event) {
+// 	if (event.httpMethod === 'GET') {
+// 		return await getCourses(event)
+// 	}
+// 	else if (event.httpMethod === 'POST') {
+// 		return await createCourse(event)
+// 	}
+// 	else if (event.httpMethod === 'PUT') {
+// 		return await updateCourse(event)
+// 	}
+// 	else if (event.httpMethod === 'DELETE') {
+// 		return await deleteCourse(event)
+// 	}
+// 	else {
+// 		return formattedReturn(405, {})
+// 	}
+// }
