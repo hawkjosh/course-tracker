@@ -7,17 +7,13 @@ const updateCourse = require('./helpers/updateCourse')
 exports.handler = async (event) => {
 	if (event.httpMethod === 'GET') {
 		return await getCourses(event)
-	}
-	else if (event.httpMethod === 'POST') {
+	} else if (event.httpMethod === 'POST') {
 		return await createCourse(event)
-	}
-	else if (event.httpMethod === 'PUT') {
+	} else if (event.httpMethod === 'PUT') {
 		return await updateCourse(event)
-	}
-	else if (event.httpMethod === 'DELETE') {
+	} else if (event.httpMethod === 'DELETE') {
 		return await deleteCourse(event)
-	}
-	else {
+	} else {
 		return formattedReturn(405, {})
 	}
 }

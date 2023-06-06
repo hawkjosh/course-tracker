@@ -1,8 +1,7 @@
 import React from 'react'
-import Course from './Course'
+import { Course } from './Course'
 
-export default function CourseList({ courses, refreshCourses }) {
-
+export const CourseList = ({ courses, refreshCourses }) => {
 	return (
 		<div className='container'>
 			<h2 className='mt-4 mb-2 text-primary'>Watch List</h2>

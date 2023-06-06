@@ -6,8 +6,7 @@ module.exports = async (event) => {
 	try {
 		const createdCourse = await table.create([{ fields }])
 		return formattedReturn(200, createdCourse)
-	}
-	catch (err) {
+	} catch (err) {
 		console.error(err)
 		return formattedReturn(500, {})
 	}

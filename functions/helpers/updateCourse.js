@@ -6,8 +6,7 @@ module.exports = async (event) => {
 	try {
 		const updatedCourse = await table.update([{ id, fields }])
 		return formattedReturn(200, updatedCourse)
-	}
-	catch (err) {
+	} catch (err) {
 		console.error(err)
 		return formattedReturn(500, {})
 	}

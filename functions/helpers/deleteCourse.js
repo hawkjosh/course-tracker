@@ -6,8 +6,7 @@ module.exports = async (event) => {
 	try {
 		const deletedCourse = await table.destroy(id)
 		return formattedReturn(200, deletedCourse)
-	}
-	catch (err) {
+	} catch (err) {
 		console.error(err)
 		return formattedReturn(500, {})
 	}

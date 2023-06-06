@@ -5,12 +5,11 @@ module.exports = async (event) => {
 	try {
 		const courses = await table.select().firstPage()
 		const formattedCourses = courses.map((course) => ({
-				id: course.id,
-				...course.fields
+			id: course.id,
+			...course.fields,
 		}))
 		return formattedReturn(200, formattedCourses)
-	}
-	catch (err) {
+	} catch (err) {
 		console.error(err)
 		return formattedReturn(500, {})
 	}
