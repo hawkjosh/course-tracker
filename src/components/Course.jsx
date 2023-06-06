@@ -56,8 +56,8 @@ export const Course = ({ course, refreshCourses }) => {
 					<div className='me-4 text-primary'>{course.name}</div>
 					<div className='d-flex flex-wrap'>
 						{course.tags &&
-							course.tags.map((tag) => (
-								<div className='badge rounded-pill bg-warning border border-primary text-primary mx-2 my-1'>
+							course.tags.map((tag, index) => (
+								<div className='badge rounded-pill bg-warning border border-primary text-primary mx-2 my-1' key={index}>
 									{tag}
 								</div>
 							))}

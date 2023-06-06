@@ -31,16 +31,6 @@ export const App = () => {
 	}, [])
 
 	return (
-		// <div className='my-3'>
-		// 	<div className='container p-1 d-flex flex-column flex-md-row justify-content-center align-items-center gap-3'>
-		// 		<AppLogo className='w-75' />
-		// 		<CourseForm courseAdded={loadCourses} />
-		// 	</div>
-		// 	<CourseList
-		// 		courses={courses}
-		// 		refreshCourses={loadCourses}
-		// 	/>
-		// </div>
 		<div className='page-wrapper'>
 			<div className='app-container'>
 				<AppLogo className='app-logo' />

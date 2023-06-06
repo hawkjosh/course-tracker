@@ -38,53 +38,31 @@ export const CourseForm = ({ courseAdded }) => {
 				<div className='form-card-header'>Add New Course</div>
 				<div className='form-card-body'>
 					<form onSubmit={submitCourse}>
-						<div className='form-card-input'>
+						<div className='form-card-input-wrapper'>
 							<input
 								type='text'
 								value={name}
 								placeholder='Course Name'
-								className='form-card-input-control'
+								className='form-card-input'
+								onChange={(e) => setName(e.target.value)}
+							/>
+							<input
+								type='text'
+								value={link}
+								placeholder='Course Link'
+								className='form-card-input'
 								onChange={(e) => setName(e.target.value)}
 							/>
 						</div>
-						{/* <div className='form-floating mb-3 mx-2 border border-primary border-1 rounded'>
-							<input
-								type='text'
-								name='link'
-								value={link}
-								placeholder='Course Link'
-								className='form-control'
-								onChange={(e) => setLink(e.target.value)}
-							/>
-							<label
-								htmlFor='link'
-								className='text-muted'>
-								Course Link
-							</label>
-						</div> */}
-						<div className='form-floating mb-3 mx-2 border border-primary border-1 rounded'>
-							<input
-								type='text'
-								name='link'
-								value={link}
-								placeholder='Course Link'
-								className='form-control'
-								onChange={(e) => setLink(e.target.value)}
-							/>
-							<label
-								htmlFor='link'
-								className='text-muted'>
-								Course Link
-							</label>
-						</div>
+
 						<Tags
 							tagsUpdated={setTags}
 							key={count}
 						/>
-						<div className='d-flex justify-content-center pt-1'>
+						<div className='form-card-submit-btn-wrapper'>
 							<button
 								type='submit'
-								className='btn btn-sm btn-outline-primary'>
+								className='form-card-submit-btn'>
 								Submit
 							</button>
 						</div>
