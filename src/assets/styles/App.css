@@ -284,154 +284,160 @@ html {
 				& .course-item-container {
 					display: flex;
 					align-items: center;
+					gap: 0.75rem;
 
-					& .course-info-container {
-						background-color: rgb(211, 211, 212);
-						border: 1px solid rgb(13, 110, 253);
-						border-radius: 6px;
-						color: rgb(20, 22, 25);
-						display: block;
-						margin: 0.25rem auto;
-						padding: 0.5rem 1rem;
+					& .course-info-wrapper {
 						position: relative;
-						text-decoration: none;
+						z-index: 0;
+						/* flex-basis: 80%; */
 						width: 100%;
-						flex-basis: 80%;
+						display: flex;
+						flex-direction: column;
+						align-items: flex-start;
+						gap: 0.625rem;
+						background-color: rgb(211, 211, 212);
+						border: 0.0625rem solid rgb(13, 110, 253);
+						border-radius: 0.625rem;
+						padding: 0.5rem 0.75rem;
+						margin: 0.25rem auto;
+						@media (min-width: 992px) {
+							flex-direction: row;
+							align-items: center;
+							gap: 1rem;
+						}
 						&:hover {
-							cursor: pointer;
-							background-color: #bebebf;
+							background-color: rgb(190, 190, 191);
 						}
 
-						& .course-info-wrapper {
+						& .course-title {
+							text-decoration: none;
+							color: rgb(13, 110, 253);
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;
+							padding-right: 10rem;
+						}
+
+						& .course-badges-wrapper {
 							display: flex;
-							flex-direction: column;
-							align-items: flex-start;
-							gap: 0.25rem;
-							@media (min-width: 992px) {
-								flex-direction: row;
-								align-items: center;
-								gap: 1rem;
-							}
+							flex-wrap: wrap;
+							align-self: center;
+							gap: 1rem;
+							color: rgb(20, 22, 25);
 
-							& .course-title {
+							& .course-badge {
+								font-size: 0.75rem;
+								font-weight: 700;
+								line-height: 0.75rem;
 								color: rgb(13, 110, 253);
+								background: rgb(255, 193, 7);
+								border: 0.0625rem solid rgb(13, 110, 253);
+								border-radius: 50rem;
+								padding: 0.25rem 0.5rem;
+								pointer-events: none;
 							}
+						}
+						& .course-btns-wrapper {
+							/* outline: solid lime;. */
+							/* z-index: 1; */
+							position: absolute;
+							top: 50%;
+							transform: translateY(-50%);
+							right: 1%;
+							/* flex-basis: 20%; */
+							/* width: 100%; */
+							display: flex;
+							/* justify-content: flex-end; */
+							/* align-items: center; */
+							gap: 0.25rem;
 
-							& .course-badges-wrapper {
-								color: rgb(20, 22, 25);
+							& .course-action-btn {
+								/* z-index: 1; */
+								width: 2rem;
+								/* background-color: rgb(255, 255, 255); */
+								/* border-radius: 0.875rem; */
+								/* padding: 0.125rem; */
 								cursor: pointer;
-								display: flex;
-								flex-wrap: wrap;
-								align-self: center;
-
-								& .course-badge {
-									background: rgb(255, 193, 7);
-									border: 1px solid rgb(13, 110, 253);
-									border-radius: 50rem;
-									color: rgb(13, 110, 253);
-									cursor: pointer;
-									font-size: 12px;
-									font-weight: 700;
-									line-height: 12px;
-									margin: 4px 8px;
-									padding: 4.2px 7.8px;
-									text-align: center;
-									text-wrap: nowrap;
-									vertical-align: baseline;
-									white-space-collapse: collapse;
+								fill: rgb(255, 255, 255);
+								transition: all 0.125s ease-in-out;
+								&.update {
+									/* border: 0.125rem solid rgb(13, 202, 240); */
+									fill: rgb(13, 202, 240);
+									&:hover {
+										/* background-color: rgb(13, 202, 240); */
+										fill: rgb(13, 202, 240);
+									}
+								}
+								&.remove {
+									/* border: 0.125rem solid rgb(220, 53, 69); */
+									fill: rgb(255, 255, 255);
+									&:hover {
+										/* background-color: rgb(220, 53, 69); */
+										fill: rgb(220, 53, 69);
+									}
+								}
+								&.purchased {
+									/* border: 0.125rem solid rgb(25, 135, 84); */
+									/* fill: rgb(25, 135, 84); */
+									&:hover {
+										/* background-color: rgb(25, 135, 84); */
+										fill: rgb(25, 135, 84);
+									}
+								}
+								&.disabled {
+									fill: gray;
+									opacity: 0.375;
+									pointer-events: none;
 								}
 							}
 						}
 					}
 
-					& .course-btns-wrapper {
-						align-items: center;
-						color: rgb(33, 37, 41);
+					/* & .course-btns-wrapper {
+						flex-basis: 20%;
+						width: 100%;
 						display: flex;
 						justify-content: center;
 						align-items: center;
-						gap: 0.5rem;
-						margin: 4px 16px;
-						margin-right: 0;
-						width: 100%;
-						flex-basis: 20%;
+						gap: 0.25rem;
 
-						& .course-update-btn {
-							align-items: flex-start;
-							appearance: button;
+						& .course-btn {
+							width: 4rem;
 							background-color: rgb(255, 255, 255);
-							border: 1px solid rgb(13, 202, 240);
-							border-radius: 4px;
-							color: rgb(13, 202, 240);
+							border-radius: 0.875rem;
+							padding: 0.5rem;
 							cursor: pointer;
-							display: block;
-							font-size: 14px;
-							line-height: 21px;
-							padding: 4px 8px;
-							text-align: center;
-							text-decoration: none;
 							transition: all 0.125s ease-in-out;
-							user-select: none;
-							vertical-align: middle;
-							width: 100%;
-							&:hover {
-								background-color: rgb(13, 202, 240);
-								fill: rgb(255, 255, 255);
+							&.update {
+								border: 0.125rem solid rgb(13, 202, 240);
+								fill: rgb(13, 202, 240);
+								&:hover {
+									background-color: rgb(13, 202, 240);
+									fill: rgb(255, 255, 255);
+								}
 							}
-							&:disabled {
+							&.remove {
+								border: 0.125rem solid rgb(220, 53, 69);
+								fill: rgb(220, 53, 69);
+								&:hover {
+									background-color: rgb(220, 53, 69);
+									fill: rgb(255, 255, 255);
+								}
+							}
+							&.purchased {
+								border: 0.125rem solid rgb(25, 135, 84);
+								fill: rgb(25, 135, 84);
+								&:hover {
+									background-color: rgb(25, 135, 84);
+									fill: rgb(255, 255, 255);
+								}
+							}
+							&.disabled {
 								opacity: 0.65;
 								pointer-events: none;
 							}
 						}
-
-						& .course-remove-btn {
-							align-items: flex-start;
-							appearance: button;
-							background-color: rgb(255, 255, 255);
-							border: 1px solid rgb(220, 53, 69);
-							border-radius: 4px;
-							color: rgb(220, 53, 69);
-							cursor: pointer;
-							display: block;
-							font-size: 14px;
-							line-height: 21px;
-							padding: 4px 8px;
-							text-align: center;
-							text-decoration: none;
-							transition: all 0.125s ease-in-out;
-							user-select: none;
-							vertical-align: middle;
-							width: 100%;
-							&:hover {
-								background-color: rgb(220, 53, 69);
-								fill: rgb(255, 255, 255);
-							}
-						}
-
-						& .course-purchased-btn {
-							align-items: flex-start;
-							appearance: button;
-							background-color: rgb(255, 255, 255);
-							border: 1px solid rgb(25, 135, 84);
-							border-radius: 4px;
-							color: rgb(25, 135, 84);
-							cursor: pointer;
-							display: block;
-							font-size: 14px;
-							line-height: 21px;
-							padding: 4px 8px;
-							text-align: center;
-							text-decoration: none;
-							transition: all 0.125s ease-in-out;
-							user-select: none;
-							vertical-align: middle;
-							width: 100%;
-							&:hover {
-								background-color: rgb(25, 135, 84);
-								fill: rgb(255, 255, 255);
-							}
-						}
-					}
+					} */
 				}
 			}
 		}

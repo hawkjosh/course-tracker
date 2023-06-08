@@ -51,57 +51,58 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 
 	return (
 		<div {...props}>
-			<a
-				href={course.link}
+			<div
+				className='course-info-wrapper'
+				>
+				<a className='course-title' href={course.link}
 				target='_blank'
-				rel='noreferrer'
-				className='course-info-container'>
-				<div className='course-info-wrapper'>
-					<div className='course-title-wrapper'>
-						<div className='course-title'>{course.name}</div>
-					</div>
-					<div className='course-badges-wrapper'>
-						{course.tags &&
-							course.tags.map((tag, index) => (
-								<div
-									className='course-badge'
-									key={index}>
-									{tag}
-								</div>
-							))}
-					</div>
+				rel='noreferrer'>{course.name}</a>
+				<div className='course-badges-wrapper'>
+					{course.tags &&
+						course.tags.map((tag, index) => (
+							<div
+								className='course-badge'
+								key={index}>
+								{tag}
+							</div>
+						))}
 				</div>
-			</a>
-			<div className='course-btns-wrapper'>
-				{/* <button
-					className='course-update-btn'
-					onClick={updateCourse}
-					disabled> */}
+
+				<div className='course-btns-wrapper'>
+					<EditIcon
+						className='course-action-btn update disabled'
+						onClick={updateCourse}
+					/>
+						<TrashIcon
+							className='course-action-btn remove'
+							onClick={deleteCourse}
+						/>
+					{!course.purchased && (
+							<PurchasedIcon
+								className='course-action-btn purchased'
+								onClick={markCoursePurchased}
+							/>
+					)}
+				</div>
+
+
+			</div>
+			{/* <div className='course-btns-wrapper'>
 				<EditIcon
-					className='course-update-btn'
+					className='course-btn update disabled'
 					onClick={updateCourse}
-					disabled
 				/>
-				{/* </button> */}
-				{/* <button
-					className='course-remove-btn'
-					onClick={deleteCourse}> */}
 				<TrashIcon
-					className='course-remove-btn'
+					className='course-btn remove'
 					onClick={deleteCourse}
 				/>
-				{/* </button> */}
 				{!course.purchased && (
-					<button
-						className='course-purchased-btn'
-						onClick={markCoursePurchased}>
-						<PurchasedIcon
-							className='course-purchased-btn'
-							onClick={markCoursePurchased}
-						/>
-					</button>
+					<PurchasedIcon
+						className='course-btn purchased'
+						onClick={markCoursePurchased}
+					/>
 				)}
-			</div>
+			</div> */}
 		</div>
 	)
 }

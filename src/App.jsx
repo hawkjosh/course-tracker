@@ -12,24 +12,24 @@ import './assets/styles/App.css'
 export const App = () => {
 	const [courses, setCourses] = useState([])
 
-	// const loadCourses = async () => {
-	// 	try {
-	// 		const res = await fetch('/.netlify/functions/courses')
-	// 		const courses = await res.json()
-	// 		setCourses(courses)
-	// 	} catch (error) {
-	// 		console.error(error)
-	// 	}
-	// }
-
-	// PIN → Below loadCourses function is for development only. Use above function for production.
-	const loadCourses = () => {
-		setCourses(courseData)
+	const loadCourses = async () => {
+		try {
+			const res = await fetch('/.netlify/functions/courses')
+			const courses = await res.json()
+			setCourses(courses)
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
-	useEffect(() => {
-		loadCourses()
-	}, [])
+	// PIN → Below loadCourses function is for development only. Use above function for production.
+	// const loadCourses = () => {
+	// 	setCourses(courseData)
+	// }
+
+	// useEffect(() => {
+	// 	loadCourses()
+	// }, [])
 
 	return (
 		<div className='app-container'>
