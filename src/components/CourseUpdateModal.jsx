@@ -2,7 +2,13 @@ import React, { useState } from 'react'
 
 import '../assets/styles/CourseUpdateModal.css'
 
-const Modal = ({ isOpen, onClose, courseData, objectIndex, handleUpdate, refreshCourses }) => {
+const Modal = ({
+	isOpen,
+	onClose,
+	courseData,
+	objectIndex,
+	handleUpdate,
+}) => {
 	const [name, setName] = useState(courseData[objectIndex].name)
 	const [link, setLink] = useState(courseData[objectIndex].link)
 	const [purchased, setPurchased] = useState(courseData[objectIndex].purchased)
@@ -22,7 +28,6 @@ const Modal = ({ isOpen, onClose, courseData, objectIndex, handleUpdate, refresh
 				method: 'DELETE',
 				body: JSON.stringify({ id: courseData.id }),
 			})
-			refreshCourses()
 		} catch (err) {
 			console.error(err)
 		}
@@ -81,26 +86,20 @@ export const CourseUpdateModal = ({ courseData, refreshCourses }) => {
 	}
 
 	const handleUpdate = async (index, updatedData) => {
-		// try {
-		// 	await axios.put('/api/update-record', {
-		// 		recordId: courseData[index].recordId, // Provide the Airtable record ID
-		// 		newData: updatedData,
-		// 	})
 		try {
 			await fetch('/.netlify/functions/courses', {
 				method: 'PUT',
 				body: JSON.stringify({
 					id: courseData[index].id,
 					fields: {
-						// name: courseData[index].name,
-						// link: courseData[index].link,
-						// tags: courseData[index].tags,
-						// purchased: courseData[index].purchased,
-            ...updatedData
+						name: updatedData.name,
+						link: updatedData.link,
+						// tags: updatedData.tags,
+						purchased: updatedData.purchased,
 					},
 				}),
 			})
-      refreshCourses()
+			refreshCourses()
 			closeModal()
 		} catch (err) {
 			console.error(err)
