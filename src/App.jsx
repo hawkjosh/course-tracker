@@ -31,8 +31,8 @@ export const App = () => {
 	// }
 
 	useEffect(() => {
-		loadCourses
-	}, [])
+		loadCourses()
+	})
 
 	return (
 		<div className='app-container'>
