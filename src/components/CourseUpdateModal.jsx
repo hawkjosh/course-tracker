@@ -74,7 +74,11 @@ export const CourseUpdateModal = ({ courseData }) => {
 				recordId: courseData[index].recordId, // Provide the Airtable record ID
 				newData: updatedData,
 			})
-
+			// try {
+			// 	await fetch('/.netlify/functions/courses', {
+			// 		method: 'PUT',
+			// 		body: JSON.stringify({ ...course, purchased: true }),
+			// 	})
 			closeModal()
 		} catch (error) {
 			console.error('Error updating record:', error)
@@ -89,6 +93,8 @@ export const CourseUpdateModal = ({ courseData }) => {
 					onClick={() => openModal(index)}>
 					<h3>{object.name}</h3>
 					<p>{object.link}</p>
+					<a href={object.link}>Course Link</a>
+					{object.purchased ? <p>Purchased 👍</p> : <p>Not Purchased 👎</p>}
 				</div>
 			))}
 
@@ -98,7 +104,7 @@ export const CourseUpdateModal = ({ courseData }) => {
 					onClose={closeModal}
 					objectIndex={selectedCourseIndex}
 					handleUpdate={handleUpdate}
-          courseData={courseData}
+					courseData={courseData}
 				/>
 			)}
 		</div>
