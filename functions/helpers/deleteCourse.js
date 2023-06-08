@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { table } = require('./airtable')
 const formattedReturn = require('./formattedReturn')
 

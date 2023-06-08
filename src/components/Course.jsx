@@ -84,25 +84,7 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 							/>
 					)}
 				</div>
-
-
 			</div>
-			{/* <div className='course-btns-wrapper'>
-				<EditIcon
-					className='course-btn update disabled'
-					onClick={updateCourse}
-				/>
-				<TrashIcon
-					className='course-btn remove'
-					onClick={deleteCourse}
-				/>
-				{!course.purchased && (
-					<PurchasedIcon
-						className='course-btn purchased'
-						onClick={markCoursePurchased}
-					/>
-				)}
-			</div> */}
 		</div>
 	)
 }

@@ -1,11 +1,14 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { AppLogo } from './components/AppLogo'
 
-import { CourseList } from './components/CourseList'
+// import { CourseList } from './components/CourseList'
 import { CourseForm } from './components/CourseForm'
 
-import { courseData } from './data/courseData.js'
+import { CourseUpdateModal } from './components/CourseUpdateModal.jsx'
+
+// PIN → Below courseData object is for development only.
+// import { courseData } from './data/courseData.js'
 
 import './assets/styles/App.css'
 
@@ -27,9 +30,9 @@ export const App = () => {
 	// 	setCourses(courseData)
 	// }
 
-	// useEffect(() => {
-	// 	loadCourses()
-	// }, [])
+	useEffect(() => {
+		loadCourses()
+	}, [])
 
 	return (
 		<div className='app-container'>
@@ -41,11 +44,12 @@ export const App = () => {
 				/>
 			</div>
 			<div className='bottom-section-wrapper'>
-				<CourseList
+				{/* <CourseList
 					className='course-list-container'
 					courses={courses}
 					refreshCourses={loadCourses}
-				/>
+				/> */}
+				<CourseUpdateModal courses={courses} />
 			</div>
 		</div>
 	)
