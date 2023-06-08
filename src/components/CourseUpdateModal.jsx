@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import '../assets/styles/CourseUpdateModal.css'
 
-const Modal = ({ isOpen, onClose, objectIndex, handleUpdate }) => {
+const Modal = ({ isOpen, onClose, courseData, objectIndex, handleUpdate }) => {
 	const [name, setName] = useState(courseData[objectIndex].name)
 	const [link, setLink] = useState(courseData[objectIndex].link)
 	const [purchased, setPurchased] = useState(courseData[objectIndex].purchased)
