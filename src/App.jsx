@@ -32,7 +32,7 @@ export const App = () => {
 
 	useEffect(() => {
 		loadCourses()
-	})
+	}, [])
 
 	return (
 		<div className='app-container'>
@@ -49,7 +49,7 @@ export const App = () => {
 					courses={courses}
 					refreshCourses={loadCourses}
 				/> */}
-				<CourseUpdateModal courses={courses} />
+				<CourseUpdateModal courseData={courses} />
 			</div>
 		</div>
 	)
