@@ -51,12 +51,14 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 
 	return (
 		<div {...props}>
-			<div
-				className='course-info-wrapper'
-				>
-				<a className='course-title' href={course.link}
-				target='_blank'
-				rel='noreferrer'>{course.name}</a>
+			<div className='course-info-wrapper'>
+				<a
+					className='course-title'
+					href={course.link}
+					target='_blank'
+					rel='noreferrer'>
+					{course.name}
+				</a>
 				<div className='course-badges-wrapper'>
 					{course.tags &&
 						course.tags.map((tag, index) => (
@@ -73,15 +75,15 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 						className='course-action-btn update disabled'
 						onClick={updateCourse}
 					/>
-						<TrashIcon
-							className='course-action-btn remove'
-							onClick={deleteCourse}
-						/>
+					<TrashIcon
+						className='course-action-btn remove'
+						onClick={deleteCourse}
+					/>
 					{!course.purchased && (
-							<PurchasedIcon
-								className='course-action-btn purchased'
-								onClick={markCoursePurchased}
-							/>
+						<PurchasedIcon
+							className='course-action-btn purchased'
+							onClick={markCoursePurchased}
+						/>
 					)}
 				</div>
 			</div>

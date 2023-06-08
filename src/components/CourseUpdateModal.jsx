@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import '../assets/styles/CourseUpdateModal.css'
 
-const Modal = ({ isOpen, onClose, courseData, objectIndex, handleUpdate }) => {
+const Modal = ({ isOpen, onClose, courseData, objectIndex, handleUpdate, refreshCourses }) => {
 	const [name, setName] = useState(courseData[objectIndex].name)
 	const [link, setLink] = useState(courseData[objectIndex].link)
 	const [purchased, setPurchased] = useState(courseData[objectIndex].purchased)
@@ -15,6 +15,18 @@ const Modal = ({ isOpen, onClose, courseData, objectIndex, handleUpdate }) => {
 			purchased,
 		}
 		handleUpdate(objectIndex, updatedData)
+	}
+
+	const deleteCourse = async () => {
+		try {
+			await fetch('/.netlify/functions/courses', {
+				method: 'DELETE',
+				body: JSON.stringify({ id: courseData.id }),
+			})
+			refreshCourses()
+		} catch (err) {
+			console.error(err)
+		}
 	}
 
 	return (
@@ -46,6 +58,7 @@ const Modal = ({ isOpen, onClose, courseData, objectIndex, handleUpdate }) => {
 					/>
 					<div className='modal-actions'>
 						<button onClick={handleUpdateClick}>Update</button>
+						<button onClick={deleteCourse}>Delete</button>
 						<button onClick={onClose}>Cancel</button>
 					</div>
 				</div>
@@ -54,7 +67,7 @@ const Modal = ({ isOpen, onClose, courseData, objectIndex, handleUpdate }) => {
 	)
 }
 
-export const CourseUpdateModal = ({ courseData }) => {
+export const CourseUpdateModal = ({ courseData, refreshCourses }) => {
 	const [modalOpen, setModalOpen] = useState(false)
 	const [selectedCourseIndex, setSelectedCourseIndex] = useState(null)
 
@@ -69,19 +82,29 @@ export const CourseUpdateModal = ({ courseData }) => {
 	}
 
 	const handleUpdate = async (index, updatedData) => {
+		// try {
+		// 	await axios.put('/api/update-record', {
+		// 		recordId: courseData[index].recordId, // Provide the Airtable record ID
+		// 		newData: updatedData,
+		// 	})
 		try {
-			await axios.put('/api/update-record', {
-				recordId: courseData[index].recordId, // Provide the Airtable record ID
-				newData: updatedData,
+			await fetch('/.netlify/functions/courses', {
+				method: 'PUT',
+				body: JSON.stringify({
+					id: courseData[index].id,
+					fields: {
+						// name: courseData[index].name,
+						// link: courseData[index].link,
+						// tags: courseData[index].tags,
+						// purchased: courseData[index].purchased,
+            ...updatedData
+					},
+				}),
 			})
-			// try {
-			// 	await fetch('/.netlify/functions/courses', {
-			// 		method: 'PUT',
-			// 		body: JSON.stringify({ ...course, purchased: true }),
-			// 	})
+      refreshCourses()
 			closeModal()
-		} catch (error) {
-			console.error('Error updating record:', error)
+		} catch (err) {
+			console.error(err)
 		}
 	}
 
@@ -92,7 +115,6 @@ export const CourseUpdateModal = ({ courseData }) => {
 					key={index}
 					onClick={() => openModal(index)}>
 					<h3>{object.name}</h3>
-					<p>{object.link}</p>
 					<a href={object.link}>Course Link</a>
 					{object.purchased ? <p>Purchased 👍</p> : <p>Not Purchased 👎</p>}
 				</div>

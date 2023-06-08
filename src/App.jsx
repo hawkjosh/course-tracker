@@ -49,7 +49,10 @@ export const App = () => {
 					courses={courses}
 					refreshCourses={loadCourses}
 				/> */}
-				<CourseUpdateModal courseData={courses} />
+				<CourseUpdateModal
+					refreshCourses={loadCourses}
+					courseData={courses}
+				/>
 			</div>
 		</div>
 	)
