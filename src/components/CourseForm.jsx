@@ -52,7 +52,7 @@ export const CourseForm = ({ courseAdded, ...props }) => {
 							value={link}
 							placeholder='Course Link'
 							className='form-card-input'
-							onChange={(e) => setName(e.target.value)}
+							onChange={(e) => setLink(e.target.value)}
 						/>
 					</div>
 					<Tags
