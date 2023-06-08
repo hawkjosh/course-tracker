@@ -83,7 +83,7 @@ export const Tags = ({ tagsUpdated, count, resetTags, ...props }) => {
 
 	useEffect(() => {
 		tagsUpdated(selectedTags)
-	}, [selectedTags, tagsUpdated])
+	}, [selectedTags, tagsUpdated, resetTags])
 
 	return (
 		<div {...props}>
