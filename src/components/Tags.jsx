@@ -1,21 +1,75 @@
 import React, { useState, useEffect } from 'react'
 
+import bootstrapImg from '../assets/images/bootstrap.svg'
+import cssImg from '../assets/images/css3.svg'
+import graphqlImg from '../assets/images/graphql.svg'
+import htmlImg from '../assets/images/html5.svg'
+import javascriptImg from '../assets/images/javascript.svg'
+import jqueryImg from '../assets/images/jquery.svg'
+import jsonImg from '../assets/images/json.svg'
+import nodejsImg from '../assets/images/nodejs.svg'
+import reactImg from '../assets/images/react.svg'
+import svgImg from '../assets/images/svg.svg'
+import tailwindImg from '../assets/images/tailwind.svg'
+import typescriptImg from '../assets/images/typescript.svg'
+
 const tagChoices = [
-	'css',
-	'express',
-	'html',
-	'javascript',
-	'node',
-	'react',
-	'typescript',
+	{
+		name: 'bootstrap',
+		img: bootstrapImg,
+	},
+	{
+		name: 'css',
+		img: cssImg,
+	},
+	{
+		name: 'graphql',
+		img: graphqlImg,
+	},
+	{
+		name: 'html',
+		img: htmlImg,
+	},
+	{
+		name: 'javascript',
+		img: javascriptImg,
+	},
+	{
+		name: 'jquery',
+		img: jqueryImg,
+	},
+	{
+		name: 'json',
+		img: jsonImg,
+	},
+	{
+		name: 'nodejs',
+		img: nodejsImg,
+	},
+	{
+		name: 'react',
+		img: reactImg,
+	},
+	{
+		name: 'svg',
+		img: svgImg,
+	},
+	{
+		name: 'tailwind',
+		img: tailwindImg,
+	},
+	{
+		name: 'typescript',
+		img: typescriptImg,
+	},
 ]
 
-export const Tags = ({ tagsUpdated, key }) => {
+export const Tags = ({ tagsUpdated, count, ...props }) => {
 	const [selectedTags, setSelectedTags] = useState([])
 
 	useEffect(() => {
 		setSelectedTags([])
-	}, [key])
+	}, [count])
 
 	const tagChange = (e) => {
 		const value = e.target.value
@@ -32,28 +86,26 @@ export const Tags = ({ tagsUpdated, key }) => {
 	}, [selectedTags, tagsUpdated])
 
 	return (
-		<div className='tags-container'>
+		<div {...props}>
 			<div className='tags-title'>Tags</div>
 			<div className='tag-choices-container'>
-				<div
-					className='tag-choices-wrapper'
-					style={{ outline: 'dotted rgba(255,0,0,0.25)' }}>
-					{tagChoices.map((choice, index) => (
-						<div
-							className='tag-choices-area'
-							key={index}>
-							<div className='tag-choice'>
-								<input
-									type='checkbox'
-									value={choice}
-									className='tag-choice-checkbox'
-									onChange={tagChange}
-								/>
-								<label className='tag-choice-text'>{choice}</label>
-							</div>
-						</div>
-					))}
-				</div>
+				{tagChoices.map((choice, index) => (
+					<div
+						className='tag-choice'
+						key={index}>
+						<input
+							className='tag-choice-checkbox'
+							type='checkbox'
+							value={choice.name}
+							onChange={tagChange}
+						/>
+						<img
+							className='tag-choice-img'
+							src={choice.img}
+							alt={choice.name}
+						/>
+					</div>
+				))}
 			</div>
 		</div>
 	)

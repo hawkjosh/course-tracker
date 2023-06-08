@@ -1,31 +1,35 @@
 import React from 'react'
 import { Course } from './Course'
 
-export const CourseList = ({ courses, refreshCourses }) => {
+export const CourseList = ({ courses, refreshCourses, ...props }) => {
 	return (
-		<div className='container'>
-			<h2 className='mt-4 mb-2 text-primary'>Watch List</h2>
-			<div className='list-group'>
+		<div {...props}>
+			<div className='course-list-wrapper'>
+				<h2 className='course-list-title'>Watch List</h2>
 				{courses
 					.filter((course) => !course.purchased)
-					.map((course) => (
+					.map((course, index) => (
 						<Course
+							className='course-item-container'
 							course={course}
-							key={course.id}
+							key={index}
 							refreshCourses={refreshCourses}
 						/>
 					))}
 			</div>
-			<h2 className='mt-4 mb-2 text-primary'>Purchased</h2>
-			{courses
-				.filter((course) => course.purchased)
-				.map((course) => (
-					<Course
-						course={course}
-						key={course.id}
-						refreshCourses={refreshCourses}
-					/>
-				))}
+			<div className='course-list-wrapper'>
+				<h2 className='course-list-title'>Purchased</h2>
+				{courses
+					.filter((course) => course.purchased)
+					.map((course, index) => (
+						<Course
+							className='course-item-container'
+							course={course}
+							key={index}
+							refreshCourses={refreshCourses}
+						/>
+					))}
+			</div>
 		</div>
 	)
 }

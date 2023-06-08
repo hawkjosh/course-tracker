@@ -1,7 +1,7 @@
 const { table } = require('./airtable')
 const formattedReturn = require('./formattedReturn')
 
-module.exports = async (event) => {
+module.exports = async () => {
 	try {
 		const courses = await table.select().firstPage()
 		const formattedCourses = courses.map((course) => ({

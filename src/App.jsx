@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
 import { AppLogo } from './components/AppLogo'
 
@@ -7,7 +7,7 @@ import { CourseForm } from './components/CourseForm'
 
 import { courseData } from './data/courseData.js'
 
-import './App.css'
+import './assets/styles/App.css'
 
 export const App = () => {
 	const [courses, setCourses] = useState([])
@@ -22,6 +22,7 @@ export const App = () => {
 	// 	}
 	// }
 
+	// PIN → Below loadCourses function is for development only. Use above function for production.
 	const loadCourses = () => {
 		setCourses(courseData)
 	}
@@ -31,15 +32,21 @@ export const App = () => {
 	}, [])
 
 	return (
-		<div className='page-wrapper'>
-			<div className='app-container'>
+		<div className='app-container'>
+			<div className='top-section-wrapper'>
 				<AppLogo className='app-logo' />
-				<CourseForm courseAdded={loadCourses} />
+				<CourseForm
+					className='form-container'
+					courseAdded={loadCourses}
+				/>
 			</div>
-			<CourseList
-				courses={courses}
-				refreshCourses={loadCourses}
-			/>
+			<div className='bottom-section-wrapper'>
+				<CourseList
+					className='course-list-container'
+					courses={courses}
+					refreshCourses={loadCourses}
+				/>
+			</div>
 		</div>
 	)
 }

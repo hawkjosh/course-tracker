@@ -4,7 +4,7 @@ export const AppLogo = ({ ...props }) => {
 	return (
 		<svg
 			style={{
-				border: '1rem solid hsl(216, 98%, 52%)',
+				border: '0.75rem solid hsl(216, 98%, 52%)',
 				borderRadius: '12.5%',
 				fill: 'hsl(216, 98%, 52%)',
 				fontWeight: '700',

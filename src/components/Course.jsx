@@ -1,6 +1,10 @@
 import React from 'react'
 
-export const Course = ({ course, refreshCourses }) => {
+import { EditIcon } from './EditIcon.jsx'
+import { PurchasedIcon } from './PurchasedIcon.jsx'
+import { TrashIcon } from './TrashIcon.jsx'
+
+export const Course = ({ course, refreshCourses, ...props }) => {
 	const markCoursePurchased = async () => {
 		try {
 			await fetch('/.netlify/functions/courses', {
@@ -25,62 +29,76 @@ export const Course = ({ course, refreshCourses }) => {
 		}
 	}
 
-	// const updateCourse = async () => {
-	// 	try {
-	// 		await fetch('/.netlify/functions/courses', {
-	// 			method: 'PUT',
-	// 			body: JSON.stringify({
-	// 				id: course.id,
-	// 				fields: {
-	// 					name: course.name,
-	// 					link: course.link,
-	// 					tags: course.tags,
-	// 					purchased: course.purchased
-	// 				}
-	// 			})
-	// 		})
-	// 		refreshCourses()
-	// 	} catch (err) {
-	// 		console.error(err)
-	// 	}
-	// }
+	const updateCourse = async () => {
+		try {
+			await fetch('/.netlify/functions/courses', {
+				method: 'PUT',
+				body: JSON.stringify({
+					id: course.id,
+					fields: {
+						name: course.name,
+						link: course.link,
+						tags: course.tags,
+						purchased: course.purchased,
+					},
+				}),
+			})
+			refreshCourses()
+		} catch (err) {
+			console.error(err)
+		}
+	}
 
 	return (
-		<div className='list-group d-flex flex-row'>
+		<div {...props}>
 			<a
 				href={course.link}
 				target='_blank'
 				rel='noreferrer'
-				className='list-group-item list-group-item-action list-group-item-dark w-75 my-1 border border-primary rounded'>
-				<div className='d-flex align-items-center'>
-					<div className='me-4 text-primary'>{course.name}</div>
-					<div className='d-flex flex-wrap'>
+				className='course-info-container'>
+				<div className='course-info-wrapper'>
+					<div className='course-title-wrapper'>
+						<div className='course-title'>{course.name}</div>
+					</div>
+					<div className='course-badges-wrapper'>
 						{course.tags &&
 							course.tags.map((tag, index) => (
-								<div className='badge rounded-pill bg-warning border border-primary text-primary mx-2 my-1' key={index}>
+								<div
+									className='course-badge'
+									key={index}>
 									{tag}
 								</div>
 							))}
 					</div>
 				</div>
 			</a>
-			<div className='d-flex align-items-center ms-3 my-1'>
+			<div className='course-btns-wrapper'>
 				{/* <button
-					className='btn btn-sm btn-outline-info me-2 disabled'
+					className='course-update-btn'
 					onClick={updateCourse}
-					>
-					Update Course
-				</button> */}
-				<button
-					className='btn btn-sm btn-outline-danger'
-					onClick={deleteCourse}>
-					Remove from Tracker
-				</button>
+					disabled> */}
+				<EditIcon
+					className='course-update-btn'
+					onClick={updateCourse}
+					disabled
+				/>
+				{/* </button> */}
+				{/* <button
+					className='course-remove-btn'
+					onClick={deleteCourse}> */}
+				<TrashIcon
+					className='course-remove-btn'
+					onClick={deleteCourse}
+				/>
+				{/* </button> */}
 				{!course.purchased && (
 					<button
-						className='btn btn-sm btn-outline-success ms-2'
+						className='course-purchased-btn'
 						onClick={markCoursePurchased}>
-						Move to Purchased
+						<PurchasedIcon
+							className='course-purchased-btn'
+							onClick={markCoursePurchased}
+						/>
 					</button>
 				)}
 			</div>

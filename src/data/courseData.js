@@ -2,7 +2,7 @@ const courseData = [
 	{
 		name: 'The Complete 2023 Web Development Bootcamp',
 		link: 'https://www.udemy.com/course/the-complete-web-development-bootcamp/?src=sac&kw=complete+2023+we',
-		tags: [['css'], ['express'], ['html'], ['javascript']],
+		tags: [['css'], ['html'], ['javascript']],
 		purchased: true,
 	},
 	{
@@ -26,7 +26,7 @@ const courseData = [
 	{
 		name: "NodeJS - The Complete Guide (MVC, REST, API's, GraphQL, Deno)",
 		link: 'https://www.udemy.com/course/nodejs-the-complete-guide/',
-		tags: ['node'],
+		tags: ['nodejs'],
 		purchased: false,
 	},
 ]
