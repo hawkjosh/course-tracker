@@ -64,29 +64,25 @@ const tagChoices = [
 	},
 ]
 
-export const Tags = ({ tagsUpdated, count, ...props }) => {
+export const Tags = ({ tagsUpdated, count, resetTags, ...props }) => {
 	const [selectedTags, setSelectedTags] = useState([])
-	const [isChecked, setIsChecked] = useState(false)
 
 	useEffect(() => {
 		setSelectedTags([])
-	}, [count])
+	}, [count, resetTags])
 
 	const tagChange = (e) => {
 		const value = e.target.value
 		const alreadySelected = selectedTags.includes(value)
 		if (e.target.checked && !alreadySelected) {
 			setSelectedTags([...selectedTags, value])
-			setIsChecked(true)
 		} else if (!e.target.checked && alreadySelected) {
 			setSelectedTags(selectedTags.filter((prevTag) => prevTag !== value))
-			setIsChecked(false)
 		}
 	}
 
 	useEffect(() => {
 		tagsUpdated(selectedTags)
-		setIsChecked(false)
 	}, [selectedTags, tagsUpdated])
 
 	return (
@@ -100,7 +96,6 @@ export const Tags = ({ tagsUpdated, count, ...props }) => {
 						<input
 							className='tag-choice-checkbox'
 							type='checkbox'
-							checked={isChecked}
 							value={choice.name}
 							onChange={tagChange}
 						/>
