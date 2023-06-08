@@ -98,7 +98,9 @@ export const Tags = ({ tagsUpdated, count, ...props }) => {
 						<input
 							className='tag-choice-checkbox'
 							type='checkbox'
-							checked={isChecked}
+							checked={(e) =>
+								e.target.checked ? setIsChecked(true) : setIsChecked(false)
+							}
 							value={choice.name}
 							onChange={tagChange}
 						/>
