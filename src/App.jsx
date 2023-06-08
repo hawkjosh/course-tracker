@@ -31,7 +31,7 @@ export const App = () => {
 	// }
 
 	useEffect(() => {
-		loadCourses()
+		loadCourses
 	}, [])
 
 	return (
