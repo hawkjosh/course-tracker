@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+import { CourseUpdateModal } from './CourseUpdateModal.jsx'
 
 import { EditIcon } from './EditIcon.jsx'
 import { PurchasedIcon } from './PurchasedIcon.jsx'
 import { TrashIcon } from './TrashIcon.jsx'
 
 export const Course = ({ course, refreshCourses, ...props }) => {
+	const [modalOpen, setModalOpen] = useState(false)
+	const [selectedCourseIndex, setSelectedCourseIndex] = useState(null)
+
+	const openModal = (index) => {
+		setSelectedCourseIndex(index)
+		setModalOpen(true)
+	}
+
+	const closeModal = () => {
+		setSelectedCourseIndex(null)
+		setModalOpen(false)
+	}
+
 	const markCoursePurchased = async () => {
 		try {
 			await fetch('/.netlify/functions/courses', {
@@ -72,8 +87,8 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 
 				<div className='course-btns-wrapper'>
 					<EditIcon
-						className='course-action-btn update disabled'
-						onClick={updateCourse}
+						className='course-action-btn update'
+						onClick={openModal}
 					/>
 					<TrashIcon
 						className='course-action-btn remove'
@@ -87,6 +102,16 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 					)}
 				</div>
 			</div>
+
+			{modalOpen && (
+				<CourseUpdateModal
+					isOpen={modalOpen}
+					onClose={closeModal}
+					courseId={selectedCourseIndex}
+					handleUpdate={updateCourse}
+					course={course}
+				/>
+			)}
 		</div>
 	)
 }

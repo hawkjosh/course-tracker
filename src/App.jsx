@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { AppLogo } from './components/AppLogo'
 
-// import { CourseList } from './components/CourseList'
+import { CourseList } from './components/CourseList'
 import { CourseForm } from './components/CourseForm'
 
 import { CourseUpdateModal } from './components/CourseUpdateModal.jsx'
@@ -44,15 +44,16 @@ export const App = () => {
 				/>
 			</div>
 			<div className='bottom-section-wrapper'>
-				{/* <CourseList
+				<CourseList
 					className='course-list-container'
 					courses={courses}
 					refreshCourses={loadCourses}
-				/> */}
+				/>
+				{/* <br/>
 				<CourseUpdateModal
 					refreshCourses={loadCourses}
 					courseData={courses}
-				/>
+				/> */}
 			</div>
 		</div>
 	)

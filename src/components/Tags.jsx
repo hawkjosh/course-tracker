@@ -64,12 +64,12 @@ const tagChoices = [
 	},
 ]
 
-export const Tags = ({ tagsUpdated, count, resetTags, ...props }) => {
+export const Tags = ({ tagsUpdated, count, ...props }) => {
 	const [selectedTags, setSelectedTags] = useState([])
 
 	useEffect(() => {
 		setSelectedTags([])
-	}, [count, resetTags])
+	}, [count])
 
 	const tagChange = (e) => {
 		const value = e.target.value
@@ -83,7 +83,7 @@ export const Tags = ({ tagsUpdated, count, resetTags, ...props }) => {
 
 	useEffect(() => {
 		tagsUpdated(selectedTags)
-	}, [selectedTags, tagsUpdated, resetTags])
+	}, [selectedTags, tagsUpdated])
 
 	return (
 		<div {...props}>

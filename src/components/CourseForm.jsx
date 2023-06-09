@@ -6,13 +6,11 @@ export const CourseForm = ({ courseAdded, ...props }) => {
 	const [link, setLink] = useState('')
 	const [tags, setTags] = useState([])
 	const [count, setCount] = useState(0)
-	const [resetTags, setResetTags] = useState(false)
 
 	const resetForm = () => {
 		setName('')
 		setLink('')
 		setCount(count + 1)
-		setResetTags(true)
 	}
 
 	const submitCourse = async (e) => {
@@ -31,7 +29,6 @@ export const CourseForm = ({ courseAdded, ...props }) => {
 		} catch (err) {
 			console.error(err)
 		}
-		console.log(name, link)
 	}
 
 	return (
@@ -61,7 +58,6 @@ export const CourseForm = ({ courseAdded, ...props }) => {
 						className='tags-container'
 						tagsUpdated={setTags}
 						count={count}
-						resetTags={resetTags}
 					/>
 					<div className='form-card-submit-btn-wrapper'>
 						<button
