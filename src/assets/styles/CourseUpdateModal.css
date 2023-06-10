@@ -21,28 +21,35 @@
 .modal-content {
 	background-color: #fff;
 	padding: 20px;
-	border-radius: 5px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	border-radius: 0.75rem;
+	box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.25);
+	display: flex;
+	flex-direction: column;
+}
+
+/* Styles for the modal title */
+.modal-content h2 {
+	margin-bottom: 0.5rem;
 }
 
 /* Styles for the modal form inputs */
 .modal-content label {
 	display: block;
-	margin-bottom: 5px;
+	margin-bottom: 0.25rem;
 }
 
 .modal-content input[type='text'],
 .modal-content input[type='checkbox'] {
 	width: 100%;
-	padding: 5px;
-	margin-bottom: 10px;
+	padding: 0.375rem;
+	margin-bottom: 0.625rem;
 }
 
 /* Styles for the modal actions */
 .modal-actions {
 	display: flex;
 	justify-content: flex-end;
-	margin-top: 20px;
+	margin-top: 1rem;
 }
 
 .modal-actions button {

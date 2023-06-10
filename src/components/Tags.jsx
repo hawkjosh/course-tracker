@@ -99,11 +99,11 @@ export const Tags = ({ tagsUpdated, count, ...props }) => {
 							value={choice.name}
 							onChange={tagChange}
 						/>
-						<img
-							className='tag-choice-img'
-							src={choice.img}
-							alt={choice.name}
-						/>
+						<label
+							style={{ backgroundImage: `url(${choice.img})` }}
+							className='tag-choice-img tooltip'>
+							<span className='tooltip-text'>{choice.name}</span>
+						</label>
 					</div>
 				))}
 			</div>

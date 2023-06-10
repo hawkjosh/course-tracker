@@ -5,11 +5,6 @@ import { AppLogo } from './components/AppLogo'
 import { CourseList } from './components/CourseList'
 import { CourseForm } from './components/CourseForm'
 
-import { CourseUpdateModal } from './components/CourseUpdateModal.jsx'
-
-// PIN → Below courseData object is for development only.
-// import { courseData } from './data/courseData.js'
-
 import './assets/styles/App.css'
 
 export const App = () => {
@@ -24,11 +19,6 @@ export const App = () => {
 			console.error(error)
 		}
 	}
-
-	// PIN → Below loadCourses function is for development only. Use above function for production.
-	// const loadCourses = () => {
-	// 	setCourses(courseData)
-	// }
 
 	useEffect(() => {
 		loadCourses()
@@ -49,11 +39,6 @@ export const App = () => {
 					courses={courses}
 					refreshCourses={loadCourses}
 				/>
-				{/* <br/>
-				<CourseUpdateModal
-					refreshCourses={loadCourses}
-					courseData={courses}
-				/> */}
 			</div>
 		</div>
 	)

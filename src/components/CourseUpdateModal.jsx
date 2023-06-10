@@ -2,19 +2,25 @@ import React, { useState } from 'react'
 
 import '../assets/styles/CourseUpdateModal.css'
 
-export const CourseUpdateModal = ({ isOpen, onClose, courseId, course, handleUpdate }) => {
+export const CourseUpdateModal = ({
+	isOpen,
+	onClose,
+	course,
+	deleteCourse,
+	updateCourse,
+}) => {
 	const [name, setName] = useState(course.name)
 	const [link, setLink] = useState(course.link)
 	const [tags, setTags] = useState(course.tags)
-	const [purchased, setPurchased] = useState(course.purchased)
 
 	const handleUpdateClick = () => {
-		const updatedData = {
-			name,
-			link,
-			purchased,
-		}
-		handleUpdate(courseId, updatedData)
+		updateCourse({ name, link })
+		onClose()
+	}
+
+	const handleDeleteClick = () => {
+		deleteCourse()
+		onClose()
 	}
 
 	const handleTagsChange = (e) => {
@@ -48,7 +54,7 @@ export const CourseUpdateModal = ({ isOpen, onClose, courseId, course, handleUpd
 						multiple
 						value={tags}
 						onChange={handleTagsChange}
-						size='12'
+						size='6'
 						style={{ marginBottom: '0.75rem' }}>
 						<option value='bootstrap'>Bootstrap</option>
 						<option value='css'>CSS</option>
@@ -63,14 +69,9 @@ export const CourseUpdateModal = ({ isOpen, onClose, courseId, course, handleUpd
 						<option value='tailwind'>Tailwind</option>
 						<option value='typescript'>TypeScript</option>
 					</select>
-					<label>Purchased:</label>
-					<input
-						type='checkbox'
-						checked={purchased}
-						onChange={(e) => setPurchased(e.target.checked)}
-					/>
 					<div className='modal-actions'>
 						<button onClick={handleUpdateClick}>Update</button>
+						<button onClick={handleDeleteClick}>Delete</button>
 						<button onClick={onClose}>Cancel</button>
 					</div>
 				</div>
@@ -78,62 +79,3 @@ export const CourseUpdateModal = ({ isOpen, onClose, courseId, course, handleUpd
 		</div>
 	)
 }
-
-// export const CourseUpdateModal = ({ courseData, refreshCourses }) => {
-// 	const [modalOpen, setModalOpen] = useState(false)
-// 	const [selectedCourseIndex, setSelectedCourseIndex] = useState(null)
-
-// 	const openModal = (index) => {
-// 		setSelectedCourseIndex(index)
-// 		setModalOpen(true)
-// 	}
-
-// 	const closeModal = () => {
-// 		setSelectedCourseIndex(null)
-// 		setModalOpen(false)
-// 	}
-
-// 	const handleUpdate = async (index, updatedData) => {
-// 		try {
-// 			await fetch('/.netlify/functions/courses', {
-// 				method: 'PUT',
-// 				body: JSON.stringify({
-// 					id: courseData[index].id,
-// 					fields: {
-// 						name: updatedData.name,
-// 						link: updatedData.link,
-// 						purchased: updatedData.purchased,
-// 					},
-// 				}),
-// 			})
-// 			refreshCourses()
-// 			closeModal()
-// 		} catch (err) {
-// 			console.error(err)
-// 		}
-// 	}
-
-// 	return (
-// 		<div className='main-content'>
-// 			{courseData.map((object, index) => (
-// 				<div
-// 					key={index}
-// 					onClick={() => openModal(index)}>
-// 					<h3>{object.name}</h3>
-// 					<a href={object.link}>Course Link</a>
-// 					{object.purchased ? <p>Purchased 👍</p> : <p>Not Purchased 👎</p>}
-// 				</div>
-// 			))}
-
-// 			{modalOpen && (
-// 				<Modal
-// 					isOpen={modalOpen}
-// 					onClose={closeModal}
-// 					objectIndex={selectedCourseIndex}
-// 					handleUpdate={handleUpdate}
-// 					courseData={courseData}
-// 				/>
-// 			)}
-// 		</div>
-// 	)
-// }

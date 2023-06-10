@@ -14,7 +14,6 @@ export const CourseForm = ({ courseAdded, ...props }) => {
 	}
 
 	const submitCourse = async (e) => {
-		e.preventDefault()
 		try {
 			await fetch('/.netlify/functions/courses', {
 				method: 'POST',

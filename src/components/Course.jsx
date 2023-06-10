@@ -3,28 +3,37 @@ import React, { useState } from 'react'
 import { CourseUpdateModal } from './CourseUpdateModal.jsx'
 
 import { EditIcon } from './EditIcon.jsx'
-import { PurchasedIcon } from './PurchasedIcon.jsx'
-import { TrashIcon } from './TrashIcon.jsx'
+import { AddIcon } from './AddIcon.jsx'
+import { RemoveIcon } from './RemoveIcon.jsx'
 
 export const Course = ({ course, refreshCourses, ...props }) => {
 	const [modalOpen, setModalOpen] = useState(false)
-	const [selectedCourseIndex, setSelectedCourseIndex] = useState(null)
 
-	const openModal = (index) => {
-		setSelectedCourseIndex(index)
+	const openModal = () => {
 		setModalOpen(true)
 	}
 
 	const closeModal = () => {
-		setSelectedCourseIndex(null)
 		setModalOpen(false)
 	}
 
-	const markCoursePurchased = async () => {
+	const addPurchased = async () => {
 		try {
 			await fetch('/.netlify/functions/courses', {
 				method: 'PUT',
 				body: JSON.stringify({ ...course, purchased: true }),
+			})
+			refreshCourses()
+		} catch (err) {
+			console.error(err)
+		}
+	}
+
+	const removePurchased = async () => {
+		try {
+			await fetch('/.netlify/functions/courses', {
+				method: 'PUT',
+				body: JSON.stringify({ ...course, purchased: false }),
 			})
 			refreshCourses()
 		} catch (err) {
@@ -44,18 +53,14 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 		}
 	}
 
-	const updateCourse = async () => {
+	const updateCourse = async ({ name, link }) => {
 		try {
 			await fetch('/.netlify/functions/courses', {
 				method: 'PUT',
 				body: JSON.stringify({
 					id: course.id,
-					fields: {
-						name: course.name,
-						link: course.link,
-						tags: course.tags,
-						purchased: course.purchased,
-					},
+					name: name,
+					link: link,
 				}),
 			})
 			refreshCourses()
@@ -90,14 +95,15 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 						className='course-action-btn update'
 						onClick={openModal}
 					/>
-					<TrashIcon
-						className='course-action-btn remove'
-						onClick={deleteCourse}
-					/>
-					{!course.purchased && (
-						<PurchasedIcon
+					{!course.purchased ? (
+						<AddIcon
 							className='course-action-btn purchased'
-							onClick={markCoursePurchased}
+							onClick={addPurchased}
+						/>
+					) : (
+						<RemoveIcon
+							className='course-action-btn not-purchased'
+							onClick={removePurchased}
 						/>
 					)}
 				</div>
@@ -107,9 +113,9 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 				<CourseUpdateModal
 					isOpen={modalOpen}
 					onClose={closeModal}
-					courseId={selectedCourseIndex}
-					handleUpdate={updateCourse}
 					course={course}
+					deleteCourse={deleteCourse}
+					updateCourse={updateCourse}
 				/>
 			)}
 		</div>
