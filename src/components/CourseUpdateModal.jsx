@@ -1,6 +1,19 @@
 import React, { useState } from 'react'
 
-import '../assets/styles/CourseUpdateModal.css'
+const options = [
+	'bootstrap',
+	'css',
+	'graphql',
+	'html',
+	'javascript',
+	'jquery',
+	'json',
+	'nodejs',
+	'react',
+	'svg',
+	'tailwind',
+	'typescript',
+]
 
 export const CourseUpdateModal = ({
 	isOpen,
@@ -14,7 +27,7 @@ export const CourseUpdateModal = ({
 	const [tags, setTags] = useState(course.tags)
 
 	const handleUpdateClick = () => {
-		updateCourse({ name, link })
+		updateCourse({ name, link, tags })
 		onClose()
 	}
 
@@ -24,55 +37,91 @@ export const CourseUpdateModal = ({
 	}
 
 	const handleTagsChange = (e) => {
-		const selectedTags = Array.from(e.target.tags, (tag) => tag.value)
-		setTags(selectedTags)
+		const value = e.target.value
+		const alreadySelected = tags.includes(value)
+		if (!e.target.checked && !alreadySelected) {
+			setTags([...tags, value])
+		} else if (!e.target.checked && alreadySelected) {
+			setTags(tags.filter((prevTag) => prevTag !== value))
+		}
 	}
 
 	return (
 		<div
-			className={`modal-container ${isOpen ? 'open' : ''}`}
+			className={`update-modal-container ${isOpen ? 'open' : ''}`}
 			onClick={onClose}>
-			<div className='modal-overlay'>
+			<div className='update-modal-overlay'>
 				<div
-					className='modal-content'
+					className='update-modal-content'
 					onClick={(e) => e.stopPropagation()}>
-					<h2>Update Course Information</h2>
-					<label>Name:</label>
-					<input
-						type='text'
-						value={name}
-						onChange={(e) => setName(e.target.value)}
-					/>
-					<label>Link:</label>
-					<input
-						type='text'
-						value={link}
-						onChange={(e) => setLink(e.target.value)}
-					/>
-					<label>Tags:</label>
-					<select
-						multiple
-						value={tags}
-						onChange={handleTagsChange}
-						size='6'
-						style={{ marginBottom: '0.75rem' }}>
-						<option value='bootstrap'>Bootstrap</option>
-						<option value='css'>CSS</option>
-						<option value='graphql'>GraphQL</option>
-						<option value='html'>HTML</option>
-						<option value='javascript'>JavaScript</option>
-						<option value='jquery'>jQuery</option>
-						<option value='json'>JSON</option>
-						<option value='nodejs'>Node.js</option>
-						<option value='react'>React</option>
-						<option value='svg'>SVG</option>
-						<option value='tailwind'>Tailwind</option>
-						<option value='typescript'>TypeScript</option>
-					</select>
-					<div className='modal-actions'>
-						<button onClick={handleUpdateClick}>Update</button>
-						<button onClick={handleDeleteClick}>Delete</button>
-						<button onClick={onClose}>Cancel</button>
+					<h2 className='update-modal-header'>Update Course Info</h2>
+					<div className='update-modal-section-wrapper'>
+						<label
+							className='update-modal-label'
+							htmlFor='course-name'>
+							Course Name:
+						</label>
+						<input
+							className='update-modal-text-input'
+							type='text'
+							name='course-name'
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+						/>
+					</div>
+					<div className='update-modal-section-wrapper'>
+						<label
+							className='update-modal-label'
+							htmlFor='course-link'>
+							Course Link:
+						</label>
+						<input
+							className='update-modal-text-input'
+							type='text'
+							name='course-link'
+							value={link}
+							onChange={(e) => setLink(e.target.value)}
+						/>
+					</div>
+					<div className='update-modal-section-wrapper'>
+						<label
+							className='update-modal-label'
+							htmlFor='course-tags'>
+							Course Tags:
+						</label>
+						<select
+							className='update-modal-dropdown'
+							multiple
+							name='course-tags'
+							value={tags}
+							onChange={handleTagsChange}
+							size='6'>
+							{options.map((option, index) => (
+								<option
+									className='update-modal-dropdown-option'
+									key={index}
+									value={option}>
+									{option}
+								</option>
+							))}
+						</select>
+					</div>
+					<div className='update-modal-btns-wrapper'>
+						<button
+							className='update-modal-btn'
+							onClick={handleUpdateClick}>
+							Update
+						</button>
+						<button
+							className='update-modal-btn'
+							onClick={handleDeleteClick}>
+							Delete
+						</button>
+						<button
+							className='update-modal-btn'
+							onClick={onClose}>
+							Cancel
+						</button>
 					</div>
 				</div>
 			</div>

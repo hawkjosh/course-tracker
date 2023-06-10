@@ -9,9 +9,11 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-
 	&::-webkit-scrollbar {
 		display: none;
+	}
+	&:is(:focus, :focus-within) {
+		outline: none;
 	}
 }
 
@@ -100,7 +102,6 @@ html {
 							&:focus {
 								color: hsla(210, 11%, 15%, 1);
 								border-color: hsla(216, 98%, 69%, 1);
-								outline: 0;
 								box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 							}
 							&::placeholder {
@@ -183,7 +184,6 @@ html {
 										filter: brightness(90%);
 									}
 									&:focus {
-										outline: 0;
 										box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 									}
 									&:checked {
@@ -193,6 +193,7 @@ html {
 								}
 
 								& .tag-choice-img {
+									position: relative;
 									background-position: center;
 									background-repeat: no-repeat;
 									background-size: 90%;
@@ -212,41 +213,36 @@ html {
 										width: 3rem;
 									}
 
-									&.tooltip {
-										position: relative;
-										display: inline-block;
-
-										& .tooltip-text {
-											visibility: hidden;
-											background-color: hsla(0, 5%, 35%, 0.65);
+									& .tooltip-text {
+										visibility: hidden;
+										background-color: hsla(0, 5%, 35%, 0.65);
+										font-size: 0.875rem;
+										line-height: 1.125;
+										color: #fff;
+										text-align: center;
+										border-radius: 0.75rem;
+										padding: 0.25rem 0.5rem;
+										position: absolute;
+										top: -40%;
+										left: -15%;
+										z-index: 1;
+										@media (min-width: 576px) {
 											font-size: 0.875rem;
-											line-height: 1.125;
-											color: #fff;
-											text-align: center;
-											border-radius: 0.75rem;
-											padding: 0.25rem 0.5rem;
-											position: absolute;
-											top: -40%;
-											left: -15%;
-											z-index: 1;
-											@media (min-width: 576px) {
-												font-size: 0.875rem;
-												top: -35%;
-											}
-											@media (min-width: 768px) {
-												font-size: 0.875rem;
-												top: -27.5%;
-											}
-											@media (min-width: 992px) {
-												font-size: 1rem;
-												top: -27.5%;
-												left: -10%;
-											}
-											@media (min-width: 1200px) {
-												font-size: 1.125rem;
-												top: -25%;
-												left: -5%;
-											}
+											top: -35%;
+										}
+										@media (min-width: 768px) {
+											font-size: 0.875rem;
+											top: -27.5%;
+										}
+										@media (min-width: 992px) {
+											font-size: 1rem;
+											top: -27.5%;
+											left: -10%;
+										}
+										@media (min-width: 1200px) {
+											font-size: 1.125rem;
+											top: -25%;
+											left: -5%;
 										}
 									}
 									&:hover > .tooltip-text {
@@ -319,6 +315,7 @@ html {
 			& .course-list-wrapper {
 				display: flex;
 				flex-direction: column;
+				gap: 0.75rem;
 
 				& .course-list-title {
 					color: var(--app-color);
@@ -326,29 +323,30 @@ html {
 				}
 
 				& .course-item-container {
+					width: 100%;
 					display: flex;
 					align-items: center;
-					gap: 0.75rem;
+					background-color: rgb(211, 211, 212);
+					border: 0.0625rem solid rgb(13, 110, 253);
+					border-radius: 0.625rem;
+					padding: 0.5rem 0.75rem;
+					&:hover {
+						background-color: rgb(190, 190, 191);
+					}
 
 					& .course-info-wrapper {
-						position: relative;
-						width: 100%;
+						width: 90%;
 						display: flex;
 						flex-direction: column;
 						align-items: flex-start;
 						gap: 0.625rem;
-						background-color: rgb(211, 211, 212);
-						border: 0.0625rem solid rgb(13, 110, 253);
-						border-radius: 0.625rem;
-						padding: 0.5rem 0.75rem;
-						margin: 0.25rem auto;
+						@media (min-width: 576px) {
+							width: 85%;
+						}
 						@media (min-width: 992px) {
 							flex-direction: row;
 							align-items: center;
 							gap: 1rem;
-						}
-						&:hover {
-							background-color: rgb(190, 190, 191);
 						}
 
 						& .course-title {
@@ -358,17 +356,21 @@ html {
 							overflow-x: hidden;
 							white-space: nowrap;
 							text-overflow: ellipsis;
-							padding-right: 4rem;
+							padding-right: 1rem;
+							@media (min-width: 992px) {
+								width: 65%;
+							}
 						}
 
 						& .course-badges-wrapper {
 							width: 100%;
 							display: flex;
 							flex-wrap: wrap;
-							align-self: flex-start;
-							justify-content: flext-start;
-							gap: 1rem;
-							color: rgb(20, 22, 25);
+							gap: 0.5rem;
+							padding-right: 1rem;
+							@media (min-width: 992px) {
+								width: 35%;
+							}
 
 							& .course-badge {
 								font-size: 0.75rem;
@@ -382,38 +384,141 @@ html {
 								pointer-events: none;
 							}
 						}
-						& .course-btns-wrapper {
-							position: absolute;
-							top: 50%;
-							transform: translateY(-50%);
-							right: 1%;
+					}
+
+					& .course-btns-wrapper {
+						width: 10%;
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						gap: 0.5rem;
+						@media (min-width: 576px) {
+							width: 15%;
+							flex-direction: row;
+							justify-content: center;
+						}
+
+						& .course-action-btn {
+							position: relative;
+							width: 2rem;
+							cursor: pointer;
+							fill: rgb(255, 255, 255);
+							transition: all 0.125s ease-in-out;
+							&.update:hover {
+								fill: rgb(255, 193, 7);
+							}
+							&.remove:hover {
+								fill: rgb(220, 53, 69);
+							}
+							&.purchased:hover {
+								fill: rgb(25, 135, 84);
+							}
+							&.not-purchased:hover {
+								fill: rgb(220, 53, 69);
+							}
+							&.disabled {
+								fill: gray;
+								opacity: 0.375;
+								pointer-events: none;
+							}
+						}
+					}
+
+					& .update-modal-container {
+						position: absolute;
+
+						& .update-modal-overlay {
+							position: fixed;
+							top: 0;
+							left: 0;
+							width: 100%;
+							height: 100%;
+							background-color: hsla(0, 0%, 0%, 0.5);
+							z-index: 1;
 							display: flex;
-							gap: 0.5rem;
+							justify-content: center;
+							align-items: center;
 
-							& .course-action-btn {
-								width: 2rem;
-								cursor: pointer;
-								fill: rgb(255, 255, 255);
-								transition: all 0.125s ease-in-out;
-								&.update:hover {
-									fill: rgb(255, 193, 7);
+							& .update-modal-content {
+								background-color: hsla(0, 100%, 100%, 1);
+								padding: 1rem;
+								border-radius: 0.75rem;
+								box-shadow: 0 0.5rem 0.5rem hsla(0, 0%, 0%, 0.25);
+								display: flex;
+								flex-direction: column;
+								gap: 0.75rem;
+								width: 90%;
+
+								& .update-modal-header {
+									text-transform: uppercase;
+									color: var(--app-color);
+									font-weight: 600;
 								}
 
-								&.remove:hover {
-									fill: rgb(220, 53, 69);
+								& .update-modal-section-wrapper {
+									display: flex;
+									flex-direction: column;
+									gap: 0.375rem;
+
+									& .update-modal-label {
+										font-weight: 500;
+										font-size: 1.125rem;
+									}
+
+									& .update-modal-text-input {
+										width: 100%;
+										padding: 0.5rem;
+										font-size: 1rem;
+										border: 0.0938rem solid hsla(0, 0%, 65%, 1);
+										border-radius: 0.5rem;
+									}
+
+									& .update-modal-dropdown {
+										width: 100%;
+										border: 0.0938rem solid hsla(0, 0%, 65%, 1);
+										border-radius: 0.5rem;
+
+										& .update-modal-dropdown-option {
+											font-size: 0.875rem;
+											padding: 0.375rem 0.5rem;
+											padding-right: 0;
+											&:checked {
+												font-weight: 600;
+												background-color: hsla(120, 35%, 75%, 1);
+												&::before {
+													content: '✅ ';
+												}
+											}
+											&:not(:checked):hover {
+												font-weight: 700;
+												background-color: hsla(120, 35%, 95%, 1);
+												&::before {
+													content: '✅ ';
+													opacity: 0.35;
+												}
+											}
+										}
+									}
 								}
 
-								&.purchased:hover {
-									fill: rgb(25, 135, 84);
-								}
+								& .update-modal-btns-wrapper {
+									display: flex;
+									justify-content: flex-end;
+									align-items: center;
+									gap: 0.5rem;
+									padding-top: 0.5rem;
 
-								&.not-purchased:hover {
-									fill: rgb(220, 53, 69);
-								}
-								&.disabled {
-									fill: gray;
-									opacity: 0.375;
-									pointer-events: none;
+									& .update-modal-btn {
+										background-color: hsla(0, 0%, 95%, 1);
+										border: 0.0625rem solid hsla(0, 0%, 65%, 1);
+										border-radius: 0.5rem;
+										padding: 0.375rem 0.5rem;
+										transition: all 0.375s ease-in-out;
+										&:hover {
+											cursor: pointer;
+											background-color: hsla(0, 0%, 90%, 1);
+										}
+									}
 								}
 							}
 						}

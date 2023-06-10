@@ -53,7 +53,7 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 		}
 	}
 
-	const updateCourse = async ({ name, link }) => {
+	const updateCourse = async ({ name, link, tags }) => {
 		try {
 			await fetch('/.netlify/functions/courses', {
 				method: 'PUT',
@@ -61,6 +61,7 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 					id: course.id,
 					name: name,
 					link: link,
+					tags: tags,
 				}),
 			})
 			refreshCourses()
@@ -89,24 +90,24 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 							</div>
 						))}
 				</div>
+			</div>
 
-				<div className='course-btns-wrapper'>
-					<EditIcon
-						className='course-action-btn update'
-						onClick={openModal}
+			<div className='course-btns-wrapper'>
+				<EditIcon
+					className='course-action-btn update'
+					onClick={openModal}
+				/>
+				{!course.purchased ? (
+					<AddIcon
+						className='course-action-btn purchased'
+						onClick={addPurchased}
 					/>
-					{!course.purchased ? (
-						<AddIcon
-							className='course-action-btn purchased'
-							onClick={addPurchased}
-						/>
-					) : (
-						<RemoveIcon
-							className='course-action-btn not-purchased'
-							onClick={removePurchased}
-						/>
-					)}
-				</div>
+				) : (
+					<RemoveIcon
+						className='course-action-btn not-purchased'
+						onClick={removePurchased}
+					/>
+				)}
 			</div>
 
 			{modalOpen && (
