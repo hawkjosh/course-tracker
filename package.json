@@ -5,7 +5,7 @@
 	"type": "module",
 	"homepage": "https://hawkjosh-course-tracker.netlify.app",
 	"scripts": {
-		"dev": "vite",
+		"dev": "vite --host --open",
 		"build": "vite build",
 		"preview": "vite preview"
 	},

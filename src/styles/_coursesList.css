@@ -1,0 +1,18 @@
+& .courses-list-container {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0.125rem 1.125rem;
+
+  & .course-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    & .course-list-title {
+      color: var(--app-color);
+      line-height: 3rem;
+    }
+  }
+}

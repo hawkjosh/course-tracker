@@ -1,20 +1,26 @@
 import React, { useState } from 'react'
 
-import { CourseUpdateModal } from './CourseUpdateModal.jsx'
+// importing custom components
+import { CourseModal } from './CourseModal.jsx'
 
-import { EditIcon } from './EditIcon.jsx'
-import { AddIcon } from './AddIcon.jsx'
-import { RemoveIcon } from './RemoveIcon.jsx'
+// importing custom icon components
+import { TagIcons } from './icons/TagIcons.jsx'
+import { EditIcon } from './icons/EditIcon.jsx'
+import { AddIcon } from './icons/AddIcon.jsx'
+import { RemoveIcon } from './icons/RemoveIcon.jsx'
 
 export const Course = ({ course, refreshCourses, ...props }) => {
-	const [modalOpen, setModalOpen] = useState(false)
+	const [modalType, setModalType] = useState('')
+	const [editModalOpen, setEditModalOpen] = useState(false)
 
 	const openModal = () => {
-		setModalOpen(true)
+		setModalType('Edit')
+		setEditModalOpen(true)
 	}
 
 	const closeModal = () => {
-		setModalOpen(false)
+		setModalType('')
+		setEditModalOpen(false)
 	}
 
 	const addPurchased = async () => {
@@ -41,82 +47,60 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 		}
 	}
 
-	const deleteCourse = async () => {
-		try {
-			await fetch('/.netlify/functions/courses', {
-				method: 'DELETE',
-				body: JSON.stringify({ id: course.id }),
-			})
-			refreshCourses()
-		} catch (err) {
-			console.error(err)
-		}
-	}
-
-	const updateCourse = async ({ name, link, tags }) => {
-		try {
-			await fetch('/.netlify/functions/courses', {
-				method: 'PUT',
-				body: JSON.stringify({
-					id: course.id,
-					name: name,
-					link: link,
-					tags: tags,
-				}),
-			})
-			refreshCourses()
-		} catch (err) {
-			console.error(err)
-		}
-	}
-
 	return (
 		<div {...props}>
-			<div className='course-info-wrapper'>
+			{/* <div className='course-info-wrapper'> */}
+			<div className='course-title-wrapper'>
 				<a
 					className='course-title'
 					href={course.link}
 					target='_blank'
 					rel='noreferrer'>
-					{course.name}
+					{course.title}
 				</a>
-				<div className='course-badges-wrapper'>
-					{course.tags &&
-						course.tags.map((tag, index) => (
-							<div
-								className='course-badge'
-								key={index}>
-								{tag}
-							</div>
-						))}
-				</div>
 			</div>
+			<div className='course-badges-wrapper'>
+				{course.tags &&
+					course.tags.map((tag, index) => {
+						if (tag) {
+							return (
+								<div
+									className='course-badge'
+									key={index}>
+									<TagIcons tagName={tag} />
+									<span className='tooltip-text'>{tag}</span>
+								</div>
+							)
+						}
+					})}
+			</div>
+			{/* </div> */}
 
 			<div className='course-btns-wrapper'>
-				<EditIcon
-					className='course-action-btn update'
-					onClick={openModal}
-				/>
+				<div className='course-action-btn update'>
+					<EditIcon onClick={openModal} />
+					<span className='tooltip-text'>Edit Course</span>
+				</div>
 				{!course.purchased ? (
-					<AddIcon
-						className='course-action-btn purchased'
-						onClick={addPurchased}
-					/>
+					<div className='course-action-btn purchased'>
+						<AddIcon onClick={addPurchased} />
+						<span className='tooltip-text'>Move To Purchased</span>
+					</div>
 				) : (
-					<RemoveIcon
-						className='course-action-btn not-purchased'
-						onClick={removePurchased}
-					/>
+					<div className='course-action-btn not-purchased'>
+						<RemoveIcon onClick={removePurchased} />
+						<span className='tooltip-text'>Move To Watch List</span>
+					</div>
 				)}
 			</div>
 
-			{modalOpen && (
-				<CourseUpdateModal
-					isOpen={modalOpen}
-					onClose={closeModal}
-					course={course}
-					deleteCourse={deleteCourse}
-					updateCourse={updateCourse}
+			{editModalOpen && (
+				<CourseModal
+					courses={course}
+					isOpen={editModalOpen}
+					closeModal={closeModal}
+					loadCourses={refreshCourses}
+					modalType={modalType}
 				/>
 			)}
 		</div>

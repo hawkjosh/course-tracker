@@ -1,20 +1,35 @@
 import React, { useEffect, useState } from 'react'
 
-import { AppLogo } from './components/AppLogo'
+// importing custom components
+import { CoursesList } from './components/CoursesList.jsx'
+import { CourseModal } from './components/CourseModal.jsx'
 
-import { CourseList } from './components/CourseList'
-import { CourseForm } from './components/CourseForm'
+// importing custom icon components
+import { AppLogoIcon } from './components/icons/AppLogoIcon.jsx'
 
-import './assets/styles/App.css'
+// importing styles
+import './App.css'
 
 export const App = () => {
 	const [courses, setCourses] = useState([])
+	const [modalType, setModalType] = useState('')
+	const [createModalOpen, setModalOpen] = useState(false)
+
+	const openModal = () => {
+		setModalType('Create')
+		setModalOpen(true)
+	}
+
+	const closeModal = () => {
+		setModalType('')
+		setModalOpen(false)
+	}
 
 	const loadCourses = async () => {
 		try {
 			const res = await fetch('/.netlify/functions/courses')
-			const courses = await res.json()
-			setCourses(courses)
+			const data = await res.json()
+			setCourses(data)
 		} catch (error) {
 			console.error(error)
 		}
@@ -26,20 +41,30 @@ export const App = () => {
 
 	return (
 		<div className='app-container'>
-			<div className='top-section-wrapper'>
-				<AppLogo className='app-logo' />
-				<CourseForm
-					className='form-container'
-					courseAdded={loadCourses}
-				/>
+			<div className='app-header'>
+				<AppLogoIcon className='app-logo' />
+				<button
+					className='add-course-btn'
+					onClick={openModal}>
+					Add New Course
+				</button>
 			</div>
-			<div className='bottom-section-wrapper'>
-				<CourseList
-					className='course-list-container'
+
+			{createModalOpen && (
+				<CourseModal
 					courses={courses}
-					refreshCourses={loadCourses}
+					isOpen={createModalOpen}
+					closeModal={closeModal}
+					loadCourses={loadCourses}
+					modalType={modalType}
 				/>
-			</div>
+			)}
+
+			<CoursesList
+				className='courses-list-container'
+				courses={courses}
+				loadCourses={loadCourses}
+			/>
 		</div>
 	)
 }

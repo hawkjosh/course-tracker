@@ -1,7 +1,13 @@
 import React from 'react'
+
+// importing custom components
 import { Course } from './Course'
 
-export const CourseList = ({ courses, refreshCourses, ...props }) => {
+export const CoursesList = ({ courses, loadCourses, ...props }) => {
+	const refreshCourses = () => {
+		loadCourses()
+	}
+
 	return (
 		<div {...props}>
 			<div className='course-list-wrapper'>

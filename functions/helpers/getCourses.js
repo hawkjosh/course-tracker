@@ -3,7 +3,11 @@ import { formattedReturn } from './formattedReturn.js'
 
 export const getCourses = async () => {
 	try {
-		const courses = await table.select().firstPage()
+		const courses = await table
+			.select({
+				sort: [{ field: 'title', direction: 'asc' }],
+			})
+			.firstPage()
 		const formattedCourses = courses.map((course) => ({
 			id: course.id,
 			...course.fields,

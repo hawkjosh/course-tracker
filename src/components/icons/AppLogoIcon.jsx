@@ -1,6 +1,4 @@
-import React from 'react'
-
-export const AppLogo = ({ ...props }) => {
+export const AppLogoIcon = ({ ...props }) => {
 	return (
 		<svg
 			style={{
