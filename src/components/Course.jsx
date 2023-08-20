@@ -49,7 +49,6 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 
 	return (
 		<div {...props}>
-			{/* <div className='course-info-wrapper'> */}
 			<div className='course-title-wrapper'>
 				<a
 					className='course-title'
@@ -74,7 +73,6 @@ export const Course = ({ course, refreshCourses, ...props }) => {
 						}
 					})}
 			</div>
-			{/* </div> */}
 
 			<div className='course-btns-wrapper'>
 				<div className='course-action-btn update'>

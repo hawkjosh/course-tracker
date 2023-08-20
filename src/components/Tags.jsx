@@ -10,7 +10,6 @@ const tagChoices = [
 	'html',
 	'javascript',
 	'jquery',
-	// 'json',
 	'python',
 	'nodejs',
 	'react',

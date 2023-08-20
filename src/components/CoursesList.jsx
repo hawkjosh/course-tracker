@@ -12,9 +12,7 @@ export const CoursesList = ({ courses, loadCourses, ...props }) => {
 		<div {...props}>
 			<div className='course-list-wrapper'>
 				<h2 className='course-list-title'>Watch List</h2>
-				{courses
-					.filter((course) => !course.purchased)
-					.map((course, index) => (
+				{courses.filter((course) => !course.purchased).map((course, index) => (
 						<Course
 							className='course-item-container'
 							course={course}
